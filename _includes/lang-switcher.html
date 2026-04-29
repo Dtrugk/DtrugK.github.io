@@ -1,0 +1,43 @@
+{%- comment -%}
+  Language switcher.
+  Renders a small inline list: 🇬🇧 EN  |  🇻🇳 VI
+  The current language is shown bold; the other links to either the translated
+  post (if its `translation_key` matches) or to the language's index page.
+
+  Usage in a layout / post:
+      {% include lang-switcher.html %}
+
+  Convention for posts:
+    Set the same `translation_key:` in the front matter of an English post and
+    its Vietnamese counterpart. Example:
+       en/_posts/2026-04-27-cobalt-libcef.md      translation_key: cobalt-libcef
+       vi/_posts/2026-04-27-cobalt-libcef.md      translation_key: cobalt-libcef
+{%- endcomment -%}
+
+<div class="lang-switcher" style="display:flex; gap:.75rem; align-items:center; font-size:.875rem; margin:.5rem 0 1rem;">
+  {%- for L in site.languages -%}
+    {%- assign is_active = false -%}
+    {%- if page.lang == L.code -%}{%- assign is_active = true -%}{%- endif -%}
+
+    {%- comment -%} Find a translated counterpart, if any {%- endcomment -%}
+    {%- assign target_url = nil -%}
+    {%- if page.translation_key -%}
+      {%- assign coll = site[L.code] -%}
+      {%- for p in coll -%}
+        {%- if p.translation_key == page.translation_key -%}
+          {%- assign target_url = p.url -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- unless target_url -%}
+      {%- assign target_url = '/' | append: L.code | append: '/' -%}
+    {%- endunless -%}
+
+    {%- if is_active -%}
+      <span style="font-weight:500;">{{ L.flag }} {{ L.code | upcase }}</span>
+    {%- else -%}
+      <a href="{{ target_url | relative_url }}" style="opacity:.7;">{{ L.flag }} {{ L.code | upcase }}</a>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

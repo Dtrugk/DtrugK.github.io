@@ -1,0 +1,168 @@
+# =============================================================================
+#  Site config
+# =============================================================================
+
+theme: jekyll-theme-chirpy
+
+# ---- Identity ---------------------------------------------------------------
+# !! REPLACE these with your real values before first deploy
+title: "Trung Kien"                    # Site title (shown in tab + header)
+tagline: "Cyber Threat Hunter"
+description: >-                          # Used in <meta> + RSS
+  Malware reverse engineering, threat analysis, and notes from the trenches.
+  Bilingual: English and Tiếng Việt.
+
+# ---- URL --------------------------------------------------------------------
+# When using yourname.github.io, leave url as the empty string and set baseurl
+# to "" too. When you move to a custom domain (e.g. yourhandle.dev), set
+#   url: "https://yourhandle.dev"
+url: ""
+baseurl: ""
+
+# ---- Author -----------------------------------------------------------------
+github:
+  username: DtrugK
+
+# Optional — fill in if/when you have these
+# twitter:
+#   username: YOUR_TWITTER
+
+social:
+  name: Trung Kien
+  email: you@example.com
+  links:
+    - https://github.com/DtrugK
+    # - https://twitter.com/YOUR_TWITTER
+    # - https://linkedin.com/in/YOUR_LINKEDIN
+
+# ---- Theme behavior ---------------------------------------------------------
+theme_mode:                # leave blank for "follow OS"; "dark" or "light" to force
+avatar: /assets/img/avatar.png    # 512x512 recommended; replace before deploy
+toc: true                  # right-rail table of contents on posts
+comments:
+  provider:                # "giscus" | "disqus" | "utterances" — set up later
+
+# ---- Pagination -------------------------------------------------------------
+paginate: 10
+
+# =============================================================================
+#  Bilingual setup (English + Vietnamese)
+#  Chirpy doesn't ship with multilingual support, so we model it as Jekyll
+#  collections. Each language gets its own collection + permalink prefix.
+# =============================================================================
+
+# Default language (used for the root-level RSS feed and as fallback)
+lang: en
+
+# Languages we publish — used by the language switcher include
+languages:
+  - code: en
+    name: English
+    flag: "🇬🇧"
+  - code: vi
+    name: Tiếng Việt
+    flag: "🇻🇳"
+
+collections:
+  en:
+    output: true
+    permalink: /en/posts/:title/
+    sort_by: date
+  vi:
+    output: true
+    permalink: /vi/posts/:title/
+    sort_by: date
+
+# Per-collection defaults (layout, language tag for SEO, comments on, etc.)
+defaults:
+  - scope:
+      path: ""
+      type: en
+    values:
+      layout: post
+      lang: en
+      comments: true
+      math: false
+      mermaid: false
+  - scope:
+      path: ""
+      type: vi
+    values:
+      layout: post
+      lang: vi
+      comments: true
+      math: false
+      mermaid: false
+  - scope:
+      path: "assets/img"
+    values:
+      swcache: true
+
+# =============================================================================
+#  Plugins (Chirpy needs these — listed for clarity)
+# =============================================================================
+plugins:
+  - jekyll-paginate
+  - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-archives
+  - jekyll-include-cache
+
+# Archives (Chirpy renders /tags/ and /categories/ from these)
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
+
+# =============================================================================
+#  Markdown / syntax highlighting
+# =============================================================================
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+# =============================================================================
+#  Build
+# =============================================================================
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - tools
+  - README.md
+  - LICENSE
+  - "*.config.js"
+  - package*.json
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/

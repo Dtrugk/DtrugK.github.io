@@ -1,0 +1,6 @@
+---
+icon: fas fa-stream
+order: 2
+permalink: /categories/
+layout: categories
+---
